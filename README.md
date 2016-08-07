@@ -10,5 +10,8 @@ Now you can config it for yourself.
 
 <img src="http://forum-files-playcanvas-com.s3-eu-west-1.amazonaws.com/original/2X/2/2ebecb7196e164b79556a933c2c982a16ae6fd65.png" width="318" height="133">
 
+# Known issues
+When window was resized outline looks strange.
+
 **__This code is property of PlayCanvas Team.__**
 
