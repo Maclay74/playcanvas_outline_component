@@ -1,4 +1,4 @@
-# PlayCanvas Outline Components
+# PlayCanvas Outline Component
 
 You can use this component to outline your models just like [PlayCanvas Editor](https://playcanvas.com). 
 This code right from there, implemented and updated to use as standalone component.
