@@ -162,12 +162,12 @@ pc.script.create('outline', function (app) {
             
             var node = new pc.GraphNode();
             var mesh = new pc.Mesh();
-            
-            var vertexFormat = new pc.gfx.VertexFormat(device, [
-                { semantic: pc.gfx.SEMANTIC_POSITION, components: 2, type: pc.gfx.ELEMENTTYPE_FLOAT32 }
+
+            var vertexFormat = new pc.VertexFormat(device, [
+                { semantic: pc.SEMANTIC_POSITION, components: 2, type: pc.TYPE_FLOAT32 }
             ]);
-            var vertexBuffer = new pc.gfx.VertexBuffer(device, vertexFormat, 4);
-            var iterator = new pc.gfx.VertexIterator(vertexBuffer);
+            var vertexBuffer = new pc.VertexBuffer(device, vertexFormat, 4);
+            var iterator = new pc.VertexIterator(vertexBuffer);
             iterator.element[pc.SEMANTIC_POSITION].set(-1, -1);
             iterator.next();
             iterator.element[pc.SEMANTIC_POSITION].set(1, -1);
@@ -334,13 +334,13 @@ pc.script.create('outline', function (app) {
             
             var camera = app.root.findByName("Camera").camera.camera;
                 
-            var oldTarget = camera.getRenderTarget();
+            var oldTarget = camera.renderTarget;
             
             if (this.render && this.enable) {
                 
                 
                 this.meshInstance.visible = true;
-                camera.setRenderTarget(this.targets[0]);
+                camera.renderTarget = this.targets[0];
                 this.renderer.setCamera(camera);
 
                 device.clear({
@@ -355,9 +355,6 @@ pc.script.create('outline', function (app) {
 
                 var oldBlending = device.getBlending();
                 device.setBlending(false);
-
-               
-               
 
                 var color = this.color;
                 
@@ -415,7 +412,8 @@ pc.script.create('outline', function (app) {
            
                 
                 // blur pass X
-                camera.setRenderTarget(this.targets[1]);
+               
+                camera.renderTarget = this.targets[1];
                 this.renderer.setCamera(camera);
                 var mesh = this.meshInstance.mesh;
                 var uOffset = device.scope.resolve('uOffset');
@@ -429,7 +427,7 @@ pc.script.create('outline', function (app) {
                 this.renderer._depthDrawCalls++;
              
                 // blur pass Y
-                camera.setRenderTarget(this.targets[0]);
+                camera.renderTarget = this.targets[0];
                 this.renderer.setCamera(camera);
                 var mesh = this.meshInstance.mesh;
                 var uOffset = device.scope.resolve('uOffset');
@@ -449,7 +447,7 @@ pc.script.create('outline', function (app) {
                 cleared = true;
             }
             
-            camera.setRenderTarget(oldTarget);
+            camera.renderTarget = oldTarget;
             
         }
     };
